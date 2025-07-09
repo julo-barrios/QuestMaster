@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de86f657d100fb47b935e70b03ae36f, type: 3}
+  m_Name: TestQuest
+  m_EditorClassIdentifier: 
+  questTitle: Quest de prueba
+  description: esta es una quest de prueba, que sirve
+  rank: 1
+  Slots: 3
+  Urgency: 3
+  requirements:
+    minimumTotalStrength: 3
+    requiresMage: 0
+    requiresThief: 0
+    requiresHealer: 0
+  possibleEvents:
+  - {fileID: 0}
+  completionOutcomes:
+  - label: Exito
+    probability: 1
+    outcome:
+      resultText: Se completo la quest
+      extraDays: 0
+    scaleWithDifficulty: 0
+    xpGain: 15
+    goldGain: 20
+    fameGain: 5

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570e4373be8a4e3479ea2bf6ec9ae4e9, type: 3}
+  m_Name: QuestPoolSO
+  m_EditorClassIdentifier: 
+  availableQuests:
+  - {fileID: 11400000, guid: 488e700c006bb8244a76a2a783472845, type: 2}
+  - {fileID: 11400000, guid: 330ca8ac73a80974686cc7b43e6edfc8, type: 2}
+  - {fileID: 11400000, guid: eee5cbaf73db4d743a76046a0bc67acc, type: 2}

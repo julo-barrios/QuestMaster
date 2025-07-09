@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de86f657d100fb47b935e70b03ae36f, type: 3}
+  m_Name: GoblinSlayerRangoE
+  m_EditorClassIdentifier: 
+  questTitle: Matar Goblin
+  description: matar goblins en la zona
+  rank: 1
+  Slots: 2
+  Urgency: 1
+  requirements:
+    minimumTotalStrength: 0
+    requiresMage: 0
+    requiresThief: 0
+    requiresHealer: 0
+  possibleEvents:
+  - {fileID: 0}
+  completionOutcomes:
+  - label: Todo bien
+    probability: 0.45
+    outcome:
+      resultText: 
+      extraDays: -62
+    scaleWithDifficulty: 0
+    xpGain: 10
+    goldGain: 30
+    fameGain: 5
+  - label: Todo mal
+    probability: 0.57
+    outcome:
+      resultText: 
+      extraDays: -58
+    scaleWithDifficulty: 0
+    xpGain: 0
+    goldGain: 0
+    fameGain: 0
