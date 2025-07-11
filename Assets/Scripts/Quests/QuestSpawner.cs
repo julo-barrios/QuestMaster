@@ -7,7 +7,7 @@ public class QuestSpawner : MonoBehaviour
     public GameObject markerPrefab;
     public Transform guildOriginPoint;
     public Transform canvasMarkersWorld;
-
+    public MapSceneUIManager mapSceneUIManager;
     public List<Transform> possibleMarkerPositions;
     public int maxQuestsOnMap = 5;
 
@@ -44,7 +44,7 @@ public class QuestSpawner : MonoBehaviour
         marker.transform.localPosition = randomPos?.position * 100 ?? Vector3.zero;
 
         var markerScript = marker.GetComponent<QuestMarker>();
-        markerScript.Setup(quest, this); // le pasa la quest y el spawner para callbacks
+        markerScript.Setup(quest, this, mapSceneUIManager); // le pasa la quest y el spawner para callbacks
 
         markerScript.guildOriginPoint = guildOriginPoint;
         activeMarkers.Add(marker);

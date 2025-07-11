@@ -12,11 +12,14 @@ public class QuestManager : MonoBehaviour
     [Header("UI")]
     public Transform activeQuestPanel;
     public GameObject questActiveCardPrefab;
-
+    private DayTimeManager _dayTimeManager;
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        
+        _dayTimeManager = DayTimeManager.Instance;
     }
 
     public QuestInstance LaunchQuest(QuestSO questData, Vector3 questPosition, List<AdventurerInstance> party)
@@ -42,8 +45,8 @@ public class QuestManager : MonoBehaviour
 
     private void Update()
     {
-        if (!DayTimeManager.Instance) return;
-        if (DayTimeManager.Instance.IsGamePausedByPopup) return;
+        if (!_dayTimeManager) return;
+        if (_dayTimeManager.IsPaused()) return;
 
         foreach (var quest in activeQuests)
         {
@@ -85,13 +88,27 @@ public class QuestManager : MonoBehaviour
         }
         */
         // Aplicar fama, oro al guild
-        GuildManager.Instance.AddFame(quest.CompletionOutcome.fameGain);
-        GuildManager.Instance.AddGold(quest.CompletionOutcome.goldGain);
+    GuildManager.Instance.AddFame(quest.CompletionOutcome.fameGain);
+    GuildManager.Instance.AddGold(quest.CompletionOutcome.goldGain);
 
-        foreach(var adventurer in quest.Party)
+    foreach(var adventurer in quest.Party)
+    {
+        // --- LÓGICA A AÑADIR/MODIFICAR ---
+        adventurer.GainXP(quest.CompletionOutcome.xpGain);
+
+        // Calculamos un costo de energía. Por ejemplo, 30 puntos por misión.
+        int energyCost = 30;
+        adventurer.CurrentEnergy -= energyCost;
+        if (adventurer.CurrentEnergy < 0)
         {
-            AvailableAdventurersUI.Instance.AddAvailableAdventurer(adventurer);
+            adventurer.CurrentEnergy = 0;
         }
+        Debug.Log($"Aventurero {adventurer.Name} volvió. Energía restante: {adventurer.CurrentEnergy}");
+        // ---------------------------------
+
+        // Tu código existente para devolver al aventurero a la lista de disponibles.
+        AvailableAdventurersUI.Instance.AddAvailableAdventurer(adventurer);
+    }
 
         Destroy(quest.cardUI.gameObject);
     }

@@ -12,18 +12,22 @@ public class QuestMarker : MonoBehaviour
     [SerializeField] private Button markerButton; // Botón que se clickea
     
     [SerializeField] private  GameObject travelSpritePrefab;
+    private MapSceneUIManager _uiManager; // Referencia al director
     public Transform guildOriginPoint; // ← no lo seteás desde el Inspector del prefab
 
     private QuestSO quest;
 
     public TextMeshProUGUI timerText;
     private QuestSpawner spawner;
+    private DayTimeManager _dayTimeManager;
 
-    public void Setup(QuestSO QuestSO, QuestSpawner questSpawner)
+    public void Setup(QuestSO QuestSO, QuestSpawner questSpawner, MapSceneUIManager uiManager)
     {
         quest = QuestSO;
         spawner = questSpawner;
         timer = timeToExpire;
+        _uiManager = uiManager; // Guardamos la referencia al director
+        _dayTimeManager = DayTimeManager.Instance;
         markerButton.onClick.RemoveAllListeners();
         markerButton.onClick.AddListener(OnMarkerClicked);
         UpdateTimerUI();
@@ -32,7 +36,7 @@ public class QuestMarker : MonoBehaviour
 
     void Update()
     {
-        if (DayTimeManager.Instance.IsGamePausedByPopup) return;
+        if (_dayTimeManager.IsPaused()) return;
 
         timer -= Time.deltaTime;
         UpdateTimerUI();
@@ -58,7 +62,7 @@ public class QuestMarker : MonoBehaviour
 
     void OnMarkerClicked()
     {
-        QuestPopupUI.Instance.Show(quest, this); // Lógica interna de mostrar datos
+        _uiManager.OnQuestMarkerSelected(quest, this); // Le avisamos al director
     }
 
     public void OnQuestAccepted()

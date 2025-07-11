@@ -11,12 +11,13 @@ public class AdventurerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     [SerializeField] private Image classTypeImage;
     [SerializeField] private TextMeshProUGUI rankText;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private Slider energySlider; 
     private AdventurerInstance Adventurer;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     private Transform originalParent;
     private Vector2 originalPosition;
-    public bool droppedInSlot = false; // ← NUEVO
+    public bool droppedInSlot = false; 
 
 
     void Awake()
@@ -31,8 +32,17 @@ public class AdventurerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
         nameText.text = Adventurer.Name;
         portraitImage.sprite = Adventurer.Portrait;
+        // Actualiza el slider de salud
         healthSlider.maxValue = Adventurer.MaxHealth;
         healthSlider.value = Adventurer.CurrentHealth;
+
+        // --- LÍNEAS A AÑADIR/MODIFICAR ---
+        // Actualiza el nuevo slider de energía
+        if (energySlider != null)
+        {
+            energySlider.maxValue = Adventurer.MaxEnergy;
+            energySlider.value = Adventurer.CurrentEnergy;
+        }
         rankText.text = Adventurer.Rank.ToString();
         classTypeImage.sprite = Adventurer.template.ClassTypeIcon;
     }
@@ -46,9 +56,9 @@ public class AdventurerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     {
         originalParent = transform.parent;
         originalPosition = rectTransform.anchoredPosition;
-        droppedInSlot = false; // ← Resetear
+        droppedInSlot = false; 
 
-        transform.SetParent(originalParent.parent); // Mover por encima de todo
+        transform.SetParent(originalParent.parent); 
         canvasGroup.blocksRaycasts = false;
     }
 

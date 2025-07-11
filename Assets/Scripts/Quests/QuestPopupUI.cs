@@ -19,7 +19,13 @@ public class QuestPopupUI : MonoBehaviour
     public AsignedAdventurerContainerUI PartySlotContainer;
     private QuestSO currentQuest;
     private QuestMarker currentMarker;
+    private MapSceneUIManager _uiManager; // Referencia al director
 
+ // El director llamará a este método para inicializar.
+    public void Initialize(MapSceneUIManager uiManager)
+    {
+        _uiManager = uiManager;
+    }
     void Awake()
     {
         // --- Singleton Pattern ---
@@ -50,7 +56,6 @@ public class QuestPopupUI : MonoBehaviour
         ClearPartySlots();
 
         gameObject.SetActive(true);
-        DayTimeManager.Instance.IsGamePausedByPopup = true; // TODO REPLACE FOR EVENT
         Debug.Log("Show popup");
     }
 
@@ -79,18 +84,19 @@ public class QuestPopupUI : MonoBehaviour
             return;
         }
 
-        DayTimeManager.Instance.IsGamePausedByPopup = false; // TODO REPLACE FOR EVENT
         // Opcional: eliminar marker del mapa (desde spawner)
         currentMarker.GetComponent<QuestMarker>().OnQuestAccepted();
         QuestManager.Instance.LaunchQuest(currentQuest, currentMarker.transform.position, PartySlotContainer.GetAdventurers());
 
-        gameObject.SetActive(false);
+        _uiManager.OnQuestPopupClosed(); // Avisa al director para que reanude el juego.
+
+        Hide();
     }
 
     public void CloseQuestPopup()
     {
         PartySlotContainer.ReturnToAvailable();
-        DayTimeManager.Instance.IsGamePausedByPopup = false; // TODO REPLACE FOR EVENT
+        _uiManager.OnQuestPopupClosed();
         gameObject.SetActive(false);
     }
 

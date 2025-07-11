@@ -1,20 +1,45 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class GuildManager : MonoBehaviour
 {
-    public static GuildManager Instance;
+    // 1. La instancia ahora es privada.
+    private static GuildManager _instance;
+// --- LÍNEA AÑADIDA: El evento que se transmitirá ---
+    public static event Action<int> OnGoldChanged;
+    // 2. Creamos una propiedad pública para acceder a la instancia.
+    public static GuildManager Instance
+    {
+        get
+        {
+            // Si la instancia aún no existe...
+            if (_instance == null)
+            {
+                // ...buscamos el prefab en la carpeta "Resources"...
+                var prefab = Resources.Load<GameObject>("GameManagers");
+                // ...y lo creamos en la escena.
+                Instantiate(prefab);
+            }
+            return _instance;
+        }
+    }
 
     [Header("Economía del Guild")]
     public int currentGold = 0;
     public int currentFame = 0;
 
-    [SerializeField] private TextMeshProUGUI textoOro;
-
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // El Awake ahora es mucho más simple. Se asegura de que no haya duplicados
+        // y se registra a sí mismo en la variable privada.
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // --- Oro ---
@@ -22,7 +47,7 @@ public class GuildManager : MonoBehaviour
     {
         currentGold += amount;
         Debug.Log($"Ganaste {amount} oro. Total: {currentGold}");
-        textoOro.text = currentGold.ToString();
+        OnGoldChanged?.Invoke(currentGold);
     }
 
     public bool SpendGold(int amount)
@@ -31,6 +56,7 @@ public class GuildManager : MonoBehaviour
         {
             currentGold -= amount;
             Debug.Log($"Gastaste {amount} oro. Total restante: {currentGold}");
+            OnGoldChanged?.Invoke(currentGold);
             return true;
         }
         else
@@ -45,13 +71,6 @@ public class GuildManager : MonoBehaviour
     {
         currentFame += amount;
         Debug.Log($"Ganaste {amount} fama. Total: {currentFame}");
-    }
-
-    public void LoseFame(int amount)
-    {
-        currentFame -= amount;
-        if (currentFame < 0) currentFame = 0;
-        Debug.Log($"Perdiste {amount} fama. Total: {currentFame}");
     }
 
     // --- Reglas basadas en fama ---

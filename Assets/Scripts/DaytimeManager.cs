@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DayTimeManager : MonoBehaviour
 {
@@ -64,7 +65,11 @@ public class DayTimeManager : MonoBehaviour
     {
         isPaused = false;
     }
-
+    public bool IsPaused()
+    {
+        return isPaused;
+    }
+    
     public void AccelerateTime(float multiplier)
     {
         timeMultiplier = multiplier;
@@ -91,8 +96,9 @@ public class DayTimeManager : MonoBehaviour
     private void EndDay()
     {
         isDayActive = false;
-        Debug.Log("Fin del día. Transición a TabernaScene.");
+        Debug.Log("Fin del día. Transición a TavernScene.");
 
-        // Acá podés disparar el cambio de escena o evento de "día terminado"
+        // LÍNEA AÑADIDA: Carga la escena de gestión.
+        SceneManager.LoadScene("TavernScene");
     }
 }

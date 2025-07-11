@@ -4,7 +4,26 @@ using UnityEngine;
 
 public class AdventurerManager : MonoBehaviour
 {
-    public static AdventurerManager Instance;
+
+    // 1. La instancia ahora es privada.
+    private static AdventurerManager _instance;
+
+    // 2. Creamos una propiedad pública para acceder a la instancia.
+    public static AdventurerManager Instance
+    {
+        get
+        {
+            // Si la instancia aún no existe...
+            if (_instance == null)
+            {
+                // ...buscamos el prefab en la carpeta "Resources"...
+                var prefab = Resources.Load<GameObject>("GameManagers");
+                // ...y lo creamos en la escena.
+                Instantiate(prefab);
+            }
+            return _instance;
+        }
+    }
 
     [SerializeField] private List<AdventurerSO> template;
     [SerializeField] private int MaxInitialAdventurer { get; set; } = 6;
@@ -12,10 +31,20 @@ public class AdventurerManager : MonoBehaviour
     private string[] Names = new string[] { "Juan", "Pepe"};
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        // El Awake ahora es mucho más simple. Se asegura de que no haya duplicados
+        // y se registra a sí mismo en la variable privada.
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
 
-        GenerateInitialAdventurers();
+        if (allAdventurers.Count == 0)
+        {
+            GenerateInitialAdventurers();
+        }
     }
 
     void GenerateInitialAdventurers()
@@ -28,12 +57,11 @@ public class AdventurerManager : MonoBehaviour
         for (int i = 0; i < MaxInitialAdventurer; i++)
         {
             
-                System.Random random2 = new System.Random();
-                int numero2 = random2.Next(2); // 0 a 99
+            System.Random random2 = new System.Random();
+            int numero2 = random2.Next(2); // 0 a 99
             AdventurerInstance adv = new AdventurerInstance(template[numero], 10, 10)
             {
-                Name = Names[numero2],
-                IsAvailable = true
+                Name = Names[numero2]
             };
             allAdventurers.Add(adv);
         }
@@ -41,7 +69,7 @@ public class AdventurerManager : MonoBehaviour
 
     public List<AdventurerInstance> GetAvailableAdventurers()
     {
-        return allAdventurers.FindAll(a => a.IsAvailable && !a.IsDead);
+        return allAdventurers.FindAll(a => a.IsAvailable);
     }
 
     public List<AdventurerInstance> GetAllAdventurers()
