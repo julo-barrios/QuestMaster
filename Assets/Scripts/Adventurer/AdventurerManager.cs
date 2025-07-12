@@ -28,7 +28,10 @@ public class AdventurerManager : MonoBehaviour
     [SerializeField] private List<AdventurerSO> template;
     [SerializeField] private int MaxInitialAdventurer { get; set; } = 6;
     private List<AdventurerInstance> allAdventurers = new();
-    private string[] Names = new string[] { "Juan", "Pepe"};
+
+    public static event Action OnRosterChanged;
+
+    private string[] Names = new string[] { "Juan", "Pepe" };
     void Awake()
     {
         // El Awake ahora es mucho más simple. Se asegura de que no haya duplicados
@@ -51,12 +54,12 @@ public class AdventurerManager : MonoBehaviour
     {
         // Ejemplo de creación de aventurer
         // os
-        
+
         System.Random random = new System.Random();
         int numero = random.Next(3);
         for (int i = 0; i < MaxInitialAdventurer; i++)
         {
-            
+
             System.Random random2 = new System.Random();
             int numero2 = random2.Next(2); // 0 a 99
             AdventurerInstance adv = new AdventurerInstance(template[numero], 10, 10)
@@ -75,5 +78,26 @@ public class AdventurerManager : MonoBehaviour
     public List<AdventurerInstance> GetAllAdventurers()
     {
         return allAdventurers;
+    }
+
+    public void AddAdventurerToRoster(AdventurerInstance newAdventurer)
+    {
+        if (allAdventurers == null)
+        {
+            allAdventurers = new List<AdventurerInstance>();
+        }
+        allAdventurers.Add(newAdventurer);
+
+        OnRosterChanged?.Invoke();
+    }
+    
+    public void RemoveAdventurerFromRoster(AdventurerInstance newAdventurer)
+    {
+        if (allAdventurers == null)
+        {
+            allAdventurers = new List<AdventurerInstance>();
+        }
+        allAdventurers.Remove(newAdventurer);
+        OnRosterChanged?.Invoke();
     }
 }

@@ -77,22 +77,22 @@ public class QuestInstance
 
     private void HandlePreEvent()
     {
-        // 20% de probabilidad de evento
-        if (Random.value < 0.2f)
-        {
-            Debug.Log("📌 Evento en el camino: emboscada de bandidos.");
-            // Acá podrías generar daños leves, decisión, etc.
-        }
+        // // 20% de probabilidad de evento
+        // if (Random.value < 0.2f)
+        // {
+        //     Debug.Log("📌 Evento en el camino: emboscada de bandidos.");
+        //     // Acá podrías generar daños leves, decisión, etc.
+        // }
     }
 
         private void HandleOnQuestEvent()
     {
-        // 20% de probabilidad de evento
-        if (Random.value < 0.2f)
-        {
-            Debug.Log("📌 Evento Durante la quest: emboscada de bandidos.");
-            // Acá podrías generar daños leves, decisión, etc.
-        }
+        // // 20% de probabilidad de evento
+        // if (Random.value < 0.2f)
+        // {
+        //     Debug.Log("📌 Evento Durante la quest: emboscada de bandidos.");
+        //     // Acá podrías generar daños leves, decisión, etc.
+        // }
     }
 
     private void HandleQuestOutcome()

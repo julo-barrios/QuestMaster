@@ -39,7 +39,6 @@ public class TavernUIManager : MonoBehaviour
         upgradesPanel.SetActive(true);
     }
 
-    // --- Método para el botón de fin de día ---
     private void ProcessNightlyActions()
     {
         Debug.Log("Procesando acciones nocturnas...");
@@ -47,10 +46,7 @@ public class TavernUIManager : MonoBehaviour
 
         foreach (var adventurer in allAdventurers)
         {
-            if (adventurer.IsResting)
-            {
-                adventurer.PerformRest(15);
-            }
+            adventurer.PerformNightRest();
         }
     }
     public void StartNewDay()

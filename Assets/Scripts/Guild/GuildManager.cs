@@ -27,7 +27,10 @@ public class GuildManager : MonoBehaviour
 
     [Header("Economía del Guild")]
     public int currentGold = 0;
+    public int CurrentFame = 0;
+    public int MaxFame = 0;
     public int currentFame = 0;
+    public QuestRank currentRank = 0;
 
     void Awake()
     {

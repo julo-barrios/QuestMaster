@@ -6,14 +6,40 @@ public class RosterPanelUI : MonoBehaviour
     [Header("Referencias")]
     public Transform cardContainer; // El contenedor con el Grid Layout Group
     public GameObject tavernRosterCardPrefab; // El prefab de la carta del aventurero
+    public AdventurerDetailsUI adventurerDetailsPanel; // Referencia a nuestro nuevo panel
+
+    private void OnEnable()
+    {
+        AdventurerManager.OnRosterChanged += PopulateRoster;
+        PopulateRoster();
+    }
+
+    private void OnDisable()
+    {
+        AdventurerManager.OnRosterChanged -= PopulateRoster;
+    }
 
     void Start()
     {
         // Al iniciar, poblamos la lista con los aventureros actuales.
+        adventurerDetailsPanel.gameObject.SetActive(false);
+        ApplyRest();
         PopulateRoster();
     }
+    private void ApplyRest()
+    { 
+        List<AdventurerInstance> allAdventurers = AdventurerManager.Instance.GetAllAdventurers();
 
-public void PopulateRoster()
+        foreach (AdventurerInstance adventurer in allAdventurers)
+        {
+
+            if (adventurer.IsResting)
+            {
+                adventurer.PerformRest(60);
+            }
+        }
+    } 
+    public void PopulateRoster()
     {
         foreach (Transform child in cardContainer)
         {
@@ -24,12 +50,6 @@ public void PopulateRoster()
 
         foreach (AdventurerInstance adventurer in allAdventurers)
         {
-
-            if (adventurer.IsResting)
-            {
-                adventurer.PerformRest(60);
-            }
-
             GameObject cardGO = Instantiate(tavernRosterCardPrefab, cardContainer);
 
             // Obtenemos la referencia al NUEVO script de la carta
@@ -37,18 +57,13 @@ public void PopulateRoster()
             if (cardUI != null)
             {
                 cardUI.Setup(adventurer);
-
-                // Aquí conectaremos la lógica del botón "Gestionar" en el futuro.
-                // Por ahora, lo dejamos listo.
-                cardUI.manageButton.onClick.AddListener(() => OnManageAdventurerClicked(cardUI));
+                cardUI.manageButton.onClick.AddListener(() => OnManageAdventurerClicked(adventurer, cardUI));
             }
         }
     }
 
-    private void OnManageAdventurerClicked(TavernRosterCardUI adventurer)
+    private void OnManageAdventurerClicked(AdventurerInstance adventurer, TavernRosterCardUI cardUI)
     {
-        // Invierte el estado actual de descanso.
-        adventurer.RestAdventurer();
-        adventurer.UpdateStatusText();
+        adventurerDetailsPanel.Show(adventurer, cardUI);
     }
 }
