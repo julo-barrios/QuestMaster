@@ -15,8 +15,10 @@ public class QuestSO : ScriptableObject
     [Header("Requisitos")]
     public QuestRequirement requirements;
 
-    [Header("Eventos posibles durante la misión")]
-    public List<QuestEventSO> possibleEvents;
+    // --- SECCIÓN MODIFICADA ---
+    [Header("Resultados de la Misión (ordenados de mejor a peor)")]
+    public List<QuestResultData> successOutcomes; // Lista de posibles éxitos
+    public List<QuestResultData> failureOutcomes; // Lista de posibles fracasos
 
     [Header("Resultados posibles")]
     public List<QuestCompletionOutcome> completionOutcomes;
@@ -38,7 +40,7 @@ public class QuestSO : ScriptableObject
                 }
             case QuestUrgency.Urgent:
                 {
-                    duration = 0.1f;
+                    duration = 0.05f;
                     break;
                 }
             default:

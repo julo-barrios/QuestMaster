@@ -51,7 +51,6 @@ public class QuestPopupUI : MonoBehaviour
         questDescriptionText.text = quest.description;
         rankText.text = $"Rango: {quest.rank}";
         durationText.text = $"Duración: {quest.DurationInDays()} días";
-        requirementsText.text = $"Requiere: Fuerza {quest.requirements.minimumTotalStrength}";
 
         ClearPartySlots();
 

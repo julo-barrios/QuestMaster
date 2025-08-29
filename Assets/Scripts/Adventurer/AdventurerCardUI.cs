@@ -8,10 +8,9 @@ public class AdventurerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Image portraitImage;
-    [SerializeField] private Image classTypeImage;
     [SerializeField] private TextMeshProUGUI rankText;
-    [SerializeField] private Slider healthSlider;
-    [SerializeField] private Slider energySlider; 
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI energyText; 
     private AdventurerInstance Adventurer;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
@@ -33,18 +32,15 @@ public class AdventurerCardUI : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         nameText.text = Adventurer.Name;
         portraitImage.sprite = Adventurer.Portrait;
         // Actualiza el slider de salud
-        healthSlider.maxValue = Adventurer.MaxHealth;
-        healthSlider.value = Adventurer.CurrentHealth;
+        healthText.text = $"{Adventurer.CurrentHealth}/{Adventurer.MaxHealth}";
 
         // --- LÍNEAS A AÑADIR/MODIFICAR ---
         // Actualiza el nuevo slider de energía
-        if (energySlider != null)
+        if (energyText != null)
         {
-            energySlider.maxValue = Adventurer.MaxEnergy;
-            energySlider.value = Adventurer.CurrentEnergy;
+            energyText.text = $"{Adventurer.CurrentEnergy}/{Adventurer.MaxEnergy}";
         }
         rankText.text = Adventurer.Rank.ToString();
-        classTypeImage.sprite = Adventurer.template.ClassTypeIcon;
     }
 
     public AdventurerInstance GetAdventurer()

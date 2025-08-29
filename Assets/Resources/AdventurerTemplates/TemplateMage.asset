@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b893ecc6e05954c4b97dd8a24b3f0881, type: 3}
   m_Name: TemplateMage
   m_EditorClassIdentifier: 
-  portrait: {fileID: 2104379849458627855, guid: 635cce72fac3d2f40b67552002cc459c, type: 3}
+  portrait: {fileID: -3283151549823379050, guid: 56d97119c38298340848c48c24c3be2a, type: 3}
   baseStrength: 5
   classType: 2
-  ClassTypeIcon: {fileID: 6097289893137416632, guid: b25e2058538c04543a488226903c88da, type: 3}
+  ClassTypeIcon: {fileID: -8670916414005081813, guid: a0e111532b3735348bc08880e2dfec0b, type: 3}

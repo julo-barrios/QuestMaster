@@ -28,9 +28,9 @@ public class QuestActiveCardUI : MonoBehaviour
         foreach (var member in party)
         {
             GameObject icon = Instantiate(partyMemberIconPrefab, partyContainer);
-            var iconText = icon.GetComponentInChildren<TextMeshProUGUI>();
-            if (iconText != null)
-                iconText.text = member.Name; // O cualquier info relevante
+            var iconImage = icon.GetComponentInChildren<Image>();
+            if (iconImage != null)
+                iconImage.sprite = member.Portrait; 
         }
     }
 }

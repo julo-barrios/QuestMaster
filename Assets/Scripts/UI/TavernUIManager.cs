@@ -53,6 +53,7 @@ public class TavernUIManager : MonoBehaviour
     {
         ProcessNightlyActions();
         Debug.Log("Comenzando nuevo día. Cargando MapScene...");
+        CalendarManager.Instance.AdvanceDay();
         SceneManager.LoadScene("MapScene");
     }
 }

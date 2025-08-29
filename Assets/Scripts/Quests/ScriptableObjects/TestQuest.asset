@@ -22,8 +22,20 @@ MonoBehaviour:
     requiresMage: 0
     requiresThief: 0
     requiresHealer: 0
-  possibleEvents:
-  - {fileID: 0}
+  successOutcomes:
+  - resultLabel: Exito
+    resultDescription: 
+    goldGain: 50
+    fameGain: 50
+    xpGain: 50
+    stressChange: 0
+  failureOutcomes:
+  - resultLabel: Falla
+    resultDescription: 
+    goldGain: 0
+    fameGain: 0
+    xpGain: 0
+    stressChange: 0
   completionOutcomes:
   - label: Exito
     probability: 1

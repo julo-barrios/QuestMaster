@@ -15,14 +15,27 @@ MonoBehaviour:
   questTitle: Mata Lobos
   description: 
   rank: 2
-  Slots: 3
-  Urgency: 1
+  Slots: 5
+  Urgency: 3
   requirements:
     minimumTotalStrength: 3
     requiresMage: 0
     requiresThief: 0
     requiresHealer: 0
-  possibleEvents: []
+  successOutcomes:
+  - resultLabel: Exito
+    resultDescription: 
+    goldGain: 50
+    fameGain: 50
+    xpGain: 50
+    stressChange: 0
+  failureOutcomes:
+  - resultLabel: Falla
+    resultDescription: 
+    goldGain: 25
+    fameGain: 25
+    xpGain: 25
+    stressChange: 0
   completionOutcomes:
   - label: Todo bien
     probability: 0.88

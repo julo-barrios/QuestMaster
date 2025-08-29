@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b893ecc6e05954c4b97dd8a24b3f0881, type: 3}
   m_Name: TemplateAssassin
   m_EditorClassIdentifier: 
-  portrait: {fileID: 3196162498304451359, guid: 82482c944aa98c0498f1053b26f51024, type: 3}
+  portrait: {fileID: -4569215729239684082, guid: 9fb0015167ccf4a45a2b7a1769b36656, type: 3}
   baseStrength: 3
   classType: 2
-  ClassTypeIcon: {fileID: -7194944432764554355, guid: 16c477381d918244c820973774fe5385, type: 3}
+  ClassTypeIcon: {fileID: -8670916414005081813, guid: a0e111532b3735348bc08880e2dfec0b, type: 3}

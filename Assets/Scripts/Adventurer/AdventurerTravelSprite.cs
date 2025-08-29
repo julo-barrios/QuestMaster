@@ -20,13 +20,19 @@ public class AdventurerTravelSprite : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target) > 0.1f)
         {
+            if(target.x -transform.position.x > 0)
+                transform.localScale = new Vector3(-1,1,1);
+            else
+                transform.localScale = new Vector3(1,1,1);
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            
         }
         else
         {
             shouldBeIdle = true;
             onArrival?.Invoke();
-            if(destroyOnArrival){
+            if (destroyOnArrival)
+            {
                 Destroy(gameObject); // Elimina el sprite al llegar
             }
             destroyOnArrival = true;

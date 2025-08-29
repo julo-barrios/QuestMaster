@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6207036319022809834}
   - component: {fileID: 4002502382379322367}
   - component: {fileID: 2459417206052624023}
+  - component: {fileID: -1813431936010586818}
+  - component: {fileID: -4636721215838694357}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -46,8 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGold: 0
-  currentFame: 0
-  textoOro: {fileID: 0}
 --- !u!114 &2459417206052624023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +60,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4a5a8693b11564397adb9a321c7f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  template:
-  - {fileID: 11400000, guid: 59e1f8a6f4567f04b892f7bbbb2a929d, type: 2}
-  - {fileID: 11400000, guid: 74aa4d80db59e2e4487efdc53893b58d, type: 2}
-  - {fileID: 11400000, guid: 3e7997292d7408347b6035f30b955fde, type: 2}
+  _adventurerTemplates: []
+--- !u!114 &-1813431936010586818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8728856402369143377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 910a9eb9a23da42458d77b71df453568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4636721215838694357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8728856402369143377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40f938e759c87f44cb725b9d549997ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressionConfigs:
+  - type: 1
+    csvFile: {fileID: 4900000, guid: 894d1b5d0ca23f14995f7314d9541c24, type: 3}

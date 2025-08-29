@@ -12,6 +12,7 @@ public class QuestInstance
     public bool isCompleted = false;
     public AdventurerTravelSprite travelersSprite;
     public QuestCompletionOutcome CompletionOutcome;
+    public QuestResultData Result { get; private set; } // El resultado final se guarda aquí
 
     public QuestActiveCardUI cardUI;
     
@@ -32,6 +33,7 @@ public class QuestInstance
     {
         cardUI = ui;
     }
+
     public void OnArrivedAtQuestLocation()
     {
         Debug.Log("📍 Llegamos al lugar de la quest.");
@@ -85,7 +87,7 @@ public class QuestInstance
         // }
     }
 
-        private void HandleOnQuestEvent()
+    private void HandleOnQuestEvent()
     {
         // // 20% de probabilidad de evento
         // if (Random.value < 0.2f)
@@ -97,7 +99,9 @@ public class QuestInstance
 
     private void HandleQuestOutcome()
     {
-       CompletionOutcome = GetRandomOutcome();
+        // ANTES: CompletionOutcome = GetRandomOutcome();
+        // AHORA:
+        Result = QuestOutcomeCalculator.Calculate(this);
     }
 
     private void OnReturnedToGuild()

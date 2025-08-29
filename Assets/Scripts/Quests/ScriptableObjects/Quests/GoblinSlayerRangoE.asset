@@ -16,14 +16,26 @@ MonoBehaviour:
   description: matar goblins en la zona
   rank: 1
   Slots: 2
-  Urgency: 1
+  Urgency: 3
   requirements:
     minimumTotalStrength: 0
     requiresMage: 0
     requiresThief: 0
     requiresHealer: 0
-  possibleEvents:
-  - {fileID: 0}
+  successOutcomes:
+  - resultLabel: Exito
+    resultDescription: todo fue bien
+    goldGain: 70
+    fameGain: 50
+    xpGain: 30
+    stressChange: 0
+  failureOutcomes:
+  - resultLabel: Fallo
+    resultDescription: 
+    goldGain: 0
+    fameGain: 0
+    xpGain: 0
+    stressChange: 0
   completionOutcomes:
   - label: Todo bien
     probability: 0.45

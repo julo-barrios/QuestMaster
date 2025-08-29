@@ -6,7 +6,7 @@ public class GuildManager : MonoBehaviour
 {
     // 1. La instancia ahora es privada.
     private static GuildManager _instance;
-// --- LÍNEA AÑADIDA: El evento que se transmitirá ---
+    // --- LÍNEA AÑADIDA: El evento que se transmitirá ---
     public static event Action<int> OnGoldChanged;
     // 2. Creamos una propiedad pública para acceder a la instancia.
     public static GuildManager Instance
@@ -25,13 +25,11 @@ public class GuildManager : MonoBehaviour
         }
     }
 
+    public string GuildName { get; set; } = "Mi Gremio";
     [Header("Economía del Guild")]
     public int currentGold = 0;
-    public int CurrentFame = 0;
-    public int MaxFame = 0;
-    public int currentFame = 0;
-    public QuestRank currentRank = 0;
 
+    public ProgressionComponent Progression { get; private set; }
     void Awake()
     {
         // El Awake ahora es mucho más simple. Se asegura de que no haya duplicados
@@ -43,6 +41,8 @@ public class GuildManager : MonoBehaviour
         }
         _instance = this;
         DontDestroyOnLoad(gameObject);
+        Progression = new ProgressionComponent(ProgressionType.Guild);
+        Progression.OnLevelUp += HandleLevelUp;
     }
 
     // --- Oro ---
@@ -70,10 +70,9 @@ public class GuildManager : MonoBehaviour
     }
 
     // --- Fama ---
-    public void AddFame(int amount)
+    public void AddFame(int xpReward)
     {
-        currentFame += amount;
-        Debug.Log($"Ganaste {amount} fama. Total: {currentFame}");
+        Progression.GainXP(xpReward);
     }
 
     // --- Reglas basadas en fama ---
@@ -83,12 +82,21 @@ public class GuildManager : MonoBehaviour
         switch (rank)
         {
             case QuestRank.E: return true;
-            case QuestRank.D: return currentFame >= 10;
-            case QuestRank.C: return currentFame >= 30;
-            case QuestRank.B: return currentFame >= 60;
-            case QuestRank.A: return currentFame >= 100;
-            case QuestRank.S: return currentFame >= 150;
+            case QuestRank.D: return Progression.CurrentLevel >= 1;
+            case QuestRank.C: return Progression.CurrentLevel >= 2;
+            case QuestRank.B: return Progression.CurrentLevel >= 5;
+            case QuestRank.A: return Progression.CurrentLevel >= 7;
+            case QuestRank.S: return Progression.CurrentLevel >= 10;
             default: return false;
         }
+    }
+    
+    private void HandleLevelUp(int newLevel)
+    {
+        Debug.Log($"¡El gremio '{GuildName}' ha alcanzado el nivel {newLevel}!");
+
+        // Aquí va la lógica específica del gremio.
+        // if (newLevel == 2) { UnlockNewBuilding("Herrería"); }
+        // if (newLevel == 3) { IncreaseAdventurerRosterSize(5); }
     }
 }

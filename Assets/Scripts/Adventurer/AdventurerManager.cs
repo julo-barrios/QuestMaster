@@ -25,7 +25,7 @@ public class AdventurerManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private List<AdventurerSO> template;
+    [SerializeField] private List<AdventurerSO> _adventurerTemplates;
     [SerializeField] private int MaxInitialAdventurer { get; set; } = 6;
     private List<AdventurerInstance> allAdventurers = new();
 
@@ -44,6 +44,7 @@ public class AdventurerManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
 
+        _adventurerTemplates = new List<AdventurerSO>(Resources.LoadAll<AdventurerSO>("AdventurerTemplates"));
         if (allAdventurers.Count == 0)
         {
             GenerateInitialAdventurers();
@@ -59,14 +60,13 @@ public class AdventurerManager : MonoBehaviour
         int numero = random.Next(3);
         for (int i = 0; i < MaxInitialAdventurer; i++)
         {
+                        // 1. Crear un nuevo aventurero
+            AdventurerSO template = _adventurerTemplates[UnityEngine.Random.Range(0, _adventurerTemplates.Count)];
+            AdventurerInstance newRecruit = new AdventurerInstance(template, 10, 10); // Stats base
+            newRecruit.Rank = (QuestRank)UnityEngine.Random.Range(1, 4); // Rango aleatorio entre E, D, C
+            newRecruit.Name = "Recluta " + i; // Nombre temporal
 
-            System.Random random2 = new System.Random();
-            int numero2 = random2.Next(2); // 0 a 99
-            AdventurerInstance adv = new AdventurerInstance(template[numero], 10, 10)
-            {
-                Name = Names[numero2]
-            };
-            allAdventurers.Add(adv);
+            allAdventurers.Add(newRecruit);
         }
     }
 
@@ -90,7 +90,7 @@ public class AdventurerManager : MonoBehaviour
 
         OnRosterChanged?.Invoke();
     }
-    
+
     public void RemoveAdventurerFromRoster(AdventurerInstance newAdventurer)
     {
         if (allAdventurers == null)
@@ -100,4 +100,6 @@ public class AdventurerManager : MonoBehaviour
         allAdventurers.Remove(newAdventurer);
         OnRosterChanged?.Invoke();
     }
+    
+
 }
