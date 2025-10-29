@@ -3,15 +3,31 @@ using UnityEngine;
 public class AdventurerTravelSprite : MonoBehaviour
 {
     public float speed = 2f;
+    private Vector3 guildPOint;
+    private Vector3 questPoint;
     private Vector3 target;
     private System.Action onArrival;
     private bool shouldBeIdle = false;
     private bool destroyOnArrival = false;
-    public void Setup(Vector3 destination, System.Action arrivalCallback)
+    public void Setup(Vector3 guildPOint, Vector3 destination)
     {
-        target = destination;
+        this.guildPOint = guildPOint;
+        questPoint = destination;
+    }
+
+    public void HeadToQuest(System.Action arrivalCallback)
+    {
+        target = questPoint;
         onArrival = arrivalCallback;
         shouldBeIdle = false;
+    }
+
+    public void HeadToGuild(System.Action arrivalCallback)
+    {
+        target = guildPOint;
+        onArrival = arrivalCallback;
+        shouldBeIdle = false;
+        destroyOnArrival = true; // Destruir al llegar al gremio
     }
 
     void Update()
@@ -35,7 +51,6 @@ public class AdventurerTravelSprite : MonoBehaviour
             {
                 Destroy(gameObject); // Elimina el sprite al llegar
             }
-            destroyOnArrival = true;
         }
     }
 }

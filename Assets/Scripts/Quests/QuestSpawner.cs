@@ -56,9 +56,7 @@ public class QuestSpawner : MonoBehaviour
 
         // Configurar el marker con la quest y el tile
         var markerScript = marker.GetComponent<QuestMarker>();
-        markerScript.Setup(quest, this, mapSceneUIManager); // le pasa la quest y el spawner para callbacks
-
-        markerScript.guildOriginPoint = guildOriginPoint;
+        markerScript.Setup(quest, this, mapSceneUIManager); 
         activeMarkers.Add(marker);
     }
 
@@ -73,7 +71,7 @@ public class QuestSpawner : MonoBehaviour
         // Opcional: podrías generar uno nuevo o esperar al siguiente día
     }
     
-        private HexTile FindValidSpawnTile()
+    private HexTile FindValidSpawnTile()
     {
         // Lógica para encontrar un buen lugar:
         // - Obtiene todos los tiles del grafo: MapGraph.Instance.graph.Values.ToList()

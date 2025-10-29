@@ -7,12 +7,16 @@ public class AdventurerManager : MonoBehaviour
 
     // 1. La instancia ahora es privada.
     private static AdventurerManager _instance;
-
+    private static bool applicationIsQuitting = false;
     // 2. Creamos una propiedad pública para acceder a la instancia.
     public static AdventurerManager Instance
     {
         get
         {
+            if (applicationIsQuitting)
+            {
+                return null;
+            }
             // Si la instancia aún no existe...
             if (_instance == null)
             {
@@ -42,6 +46,7 @@ public class AdventurerManager : MonoBehaviour
             return;
         }
         _instance = this;
+        applicationIsQuitting = false;
         DontDestroyOnLoad(gameObject);
 
         _adventurerTemplates = new List<AdventurerSO>(Resources.LoadAll<AdventurerSO>("AdventurerTemplates"));
@@ -101,5 +106,11 @@ public class AdventurerManager : MonoBehaviour
         OnRosterChanged?.Invoke();
     }
     
-
+    public void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            applicationIsQuitting = true;
+        }
+    }
 }

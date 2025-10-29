@@ -5,7 +5,7 @@ public class MapSceneUIManager : MonoBehaviour
     [Header("Paneles de UI")]
     [SerializeField] private QuestPopupUI questPopup;
     [SerializeField] private AvailableAdventurersUI availableAdventurersPanel;
-    [SerializeField] private GameObject activeQuestsPanel;
+    //[SerializeField] private GameObject activeQuestsPanel;
 
     private DayTimeManager _dayTimeManager;
 

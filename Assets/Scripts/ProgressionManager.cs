@@ -20,16 +20,19 @@ public class ProgressionManager : MonoBehaviour
     // Una lista pública para que puedas asignar los archivos CSV en el Inspector.
     public List<ProgressionTableConfig> progressionConfigs;
 
+    private static bool applicationIsQuitting = false;
     public static ProgressionManager Instance
     {
         get
         {
-            // Si la instancia aún no existe...
+            if (applicationIsQuitting)
+            {
+                return null;
+            }
+
             if (_instance == null)
             {
-                // ...buscamos el prefab en la carpeta "Resources"...
                 var prefab = Resources.Load<GameObject>("GameManagers");
-                // ...y lo creamos en la escena.
                 Instantiate(prefab);
             }
             return _instance;
@@ -45,6 +48,7 @@ public class ProgressionManager : MonoBehaviour
         }
 
         _instance = this;
+        applicationIsQuitting = false;
         DontDestroyOnLoad(gameObject);
         LoadAllProgressionData();
     }
@@ -78,7 +82,7 @@ public class ProgressionManager : MonoBehaviour
                     levelDataMap.Add(data.Level, data);
                 }
             }
-            
+
             // Guardamos el diccionario de niveles en nuestro diccionario de tablas.
             progressionTables.Add(config.type, levelDataMap);
             Debug.Log($"Cargada tabla de progresión '{config.type}' con {levelDataMap.Count} niveles.");
@@ -93,6 +97,14 @@ public class ProgressionManager : MonoBehaviour
             return progressionTables[type][level];
         }
         return null; // Devolver null si el nivel o tipo no existe.
+    }
+    
+    public void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            applicationIsQuitting = true;
+        }
     }
 }
 

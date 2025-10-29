@@ -36,11 +36,8 @@ public class QuestInstance
 
     public void OnArrivedAtQuestLocation()
     {
-        Debug.Log("📍 Llegamos al lugar de la quest.");
-
         currentState = QuestState.ExecutingQuest;
         timeRemaining = questData.DurationInDays() * DayTimeManager.Instance.dayDurationSeconds;
-        Debug.Log($"La party llegó a la quest '{questData.questTitle}'. Ejecutando...");
     }
 
 
@@ -73,8 +70,7 @@ public class QuestInstance
     {
         HandleQuestOutcome(); // calcula heridos, muertos, oro, etc
         currentState = QuestState.ReturningToGuild;
-        travelersSprite.Setup(QuestManager.Instance.guildOriginPoint.position, () => OnReturnedToGuild());
-        Debug.Log($"Quest '{questData.questTitle}' completada. Volviendo...");
+        travelersSprite.HeadToGuild(() => OnReturnedToGuild());
     }
 
     private void HandlePreEvent()
@@ -106,7 +102,6 @@ public class QuestInstance
 
     private void OnReturnedToGuild()
     {
-        Debug.Log("🏠 La party regresó al gremio.");
         currentState = QuestState.Completed;
         QuestManager.Instance.OnQuestCompleted(this);
     }

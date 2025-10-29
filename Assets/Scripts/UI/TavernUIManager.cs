@@ -13,7 +13,6 @@ public class TavernUIManager : MonoBehaviour
     {
         // Al empezar, nos aseguramos de que solo el panel de la plantilla esté visible.
         ShowRosterPanel();
-        var gold = GuildManager.Instance.currentGold;
     }
 
     // --- Métodos para los botones de las pestañas ---

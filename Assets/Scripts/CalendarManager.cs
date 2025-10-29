@@ -12,10 +12,15 @@ public class CalendarManager : MonoBehaviour
     // Pasará la nueva fecha como parámetro.
     public static event Action<GameDate> OnDayAdvanced;
 
+    private static bool applicationIsQuitting = false;
     public static CalendarManager Instance
     {
         get
         {
+            if (applicationIsQuitting)
+            {
+                return null;
+            }
             // Si la instancia aún no existe...
             if (_instance == null)
             {
@@ -34,10 +39,11 @@ public class CalendarManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         _instance = this;
+        applicationIsQuitting = false;
         DontDestroyOnLoad(gameObject);
-        
+
         // Establecemos la fecha inicial del juego.
         InitializeDate();
     }
@@ -56,5 +62,14 @@ public class CalendarManager : MonoBehaviour
 
         // Anunciamos a todo el juego que ha pasado un día.
         OnDayAdvanced?.Invoke(CurrentDate);
+    }
+    
+         public void OnDestroy()
+    {
+        // Si este es el Singleton original, activamos la bandera.
+        if (_instance == this)
+        {
+            applicationIsQuitting = true;
+        }
     }
 }

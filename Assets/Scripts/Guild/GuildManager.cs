@@ -8,11 +8,17 @@ public class GuildManager : MonoBehaviour
     private static GuildManager _instance;
     // --- LÍNEA AÑADIDA: El evento que se transmitirá ---
     public static event Action<int> OnGoldChanged;
-    // 2. Creamos una propiedad pública para acceder a la instancia.
+
+    private static bool applicationIsQuitting = false;
+
     public static GuildManager Instance
     {
         get
         {
+            if (applicationIsQuitting)
+            {
+                return null;
+            }
             // Si la instancia aún no existe...
             if (_instance == null)
             {
@@ -40,6 +46,7 @@ public class GuildManager : MonoBehaviour
             return;
         }
         _instance = this;
+        applicationIsQuitting = false;
         DontDestroyOnLoad(gameObject);
         Progression = new ProgressionComponent(ProgressionType.Guild);
         Progression.OnLevelUp += HandleLevelUp;
@@ -90,7 +97,7 @@ public class GuildManager : MonoBehaviour
             default: return false;
         }
     }
-    
+
     private void HandleLevelUp(int newLevel)
     {
         Debug.Log($"¡El gremio '{GuildName}' ha alcanzado el nivel {newLevel}!");
@@ -98,5 +105,15 @@ public class GuildManager : MonoBehaviour
         // Aquí va la lógica específica del gremio.
         // if (newLevel == 2) { UnlockNewBuilding("Herrería"); }
         // if (newLevel == 3) { IncreaseAdventurerRosterSize(5); }
+    }
+    
+
+     public void OnDestroy()
+    {
+        // Si este es el Singleton original, activamos la bandera.
+        if (_instance == this)
+        {
+            applicationIsQuitting = true;
+        }
     }
 }

@@ -11,9 +11,7 @@ public class QuestMarker : MonoBehaviour
     
     [SerializeField] private Button markerButton; // Botón que se clickea
     
-    [SerializeField] private  GameObject travelSpritePrefab;
-    private MapSceneUIManager _uiManager; // Referencia al director
-    public Transform guildOriginPoint; // ← no lo seteás desde el Inspector del prefab
+    private MapSceneUIManager _uiManager; 
 
     private QuestSO quest;
 
@@ -54,10 +52,7 @@ public class QuestMarker : MonoBehaviour
 
     void ExpireQuest()
     {
-        // Aquí podrías perder reputación
-        Debug.Log($"Quest {quest.questTitle} expiró!");
         spawner.RemoveMarker(gameObject);
-        //Destroy(markerButton);
     }
 
     void OnMarkerClicked()

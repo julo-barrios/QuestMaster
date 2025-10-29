@@ -55,7 +55,6 @@ public class QuestPopupUI : MonoBehaviour
         ClearPartySlots();
 
         gameObject.SetActive(true);
-        Debug.Log("Show popup");
     }
 
     void ClearPartySlots()
@@ -83,7 +82,6 @@ public class QuestPopupUI : MonoBehaviour
             return;
         }
 
-        // Opcional: eliminar marker del mapa (desde spawner)
         currentMarker.GetComponent<QuestMarker>().OnQuestAccepted();
         QuestManager.Instance.LaunchQuest(currentQuest, currentMarker.transform.position, PartySlotContainer.GetAdventurers());
 

@@ -11,6 +11,14 @@ public class TopBarTavernUI : MonoBehaviour
     [SerializeField] private Slider leveSlider;
 
     // Este método se ejecuta cuando el objeto se activa.
+
+    void Awake()
+    {
+        goldText.text = GuildManager.Instance.currentGold.ToString();
+        guildNameText.text = GuildManager.Instance.GuildName;
+        leveSlider.value = GuildManager.Instance.Progression.CurrentXP;
+    }
+
     private void OnEnable()
     {
         if (GuildManager.Instance != null)
@@ -56,12 +64,6 @@ public class TopBarTavernUI : MonoBehaviour
 
         UpdateXPSlider(progression.CurrentXP, xpForNext);
         UpdateLevelText(progression.CurrentLevel);
-    }
-    void Start()
-    {
-        goldText.text = GuildManager.Instance.currentGold.ToString();
-        guildNameText.text = GuildManager.Instance.GuildName;
-        leveSlider.value = GuildManager.Instance.Progression.CurrentXP;
     }
 
     // El método que reacciona al evento.
