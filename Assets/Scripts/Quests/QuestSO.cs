@@ -14,6 +14,7 @@ public class QuestSO : ScriptableObject
 
     [Header("Requisitos")]
     public QuestRequirement requirements;
+    public List<EnemySO> apparentEnemies = new List<EnemySO>();
 
     // --- SECCIÓN MODIFICADA ---
     [Header("Resultados de la Misión (ordenados de mejor a peor)")]

@@ -94,14 +94,13 @@ public class QuestManager : MonoBehaviour
         }
         */
         // Aplicar fama, oro al guild
-        GuildManager.Instance.AddFame(quest.Result.fameGain);
-        GuildManager.Instance.AddGold(quest.Result.goldGain);
+        GuildManager.Instance.AddFame(quest.Result.FameEarned);
+        GuildManager.Instance.AddGold(quest.Result.GoldEarned);
 
         foreach (var adventurer in quest.Party)
         {
             // --- LÓGICA A AÑADIR/MODIFICAR ---
-            adventurer.GainXP(quest.Result.xpGain);
-            adventurer.GainXP(quest.Result.xpGain);
+            adventurer.GainXP(quest.Result.ExperienceEarned);
             // Calculamos un costo de energía. Por ejemplo, 30 puntos por misión.
             int energyCost = 30;
             adventurer.CurrentEnergy -= energyCost;

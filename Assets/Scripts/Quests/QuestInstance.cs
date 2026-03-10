@@ -4,6 +4,7 @@ using UnityEngine;
 public class QuestInstance
 {
     public List<AdventurerInstance> Party;
+    public List<EnemyInstance> Enemies;
     public QuestState currentState = QuestState.TravelingToQuest;
     public float totalDays;
     public float daysRemaining;
@@ -12,7 +13,7 @@ public class QuestInstance
     public bool isCompleted = false;
     public AdventurerTravelSprite travelersSprite;
     public QuestCompletionOutcome CompletionOutcome;
-    public QuestResultData Result { get; private set; } // El resultado final se guarda aquí
+    public QuestOutcome Result { get; private set; } // El resultado final se guarda aquí
 
     public QuestActiveCardUI cardUI;
     
@@ -23,6 +24,15 @@ public class QuestInstance
         totalDays = questquestData.DurationInDays();
         daysRemaining = totalDays;
         timeRemaining = daysRemaining * 300;
+
+        Enemies = new List<EnemyInstance>();
+        if (questData.apparentEnemies != null)
+        {
+            foreach(var enemySO in questData.apparentEnemies)
+            {
+                Enemies.Add(new EnemyInstance(enemySO));
+            }
+        }
     }
         
     public void SetTravelerSprite(AdventurerTravelSprite sprite)
