@@ -66,10 +66,10 @@ public class AdventurerManager : MonoBehaviour
         for (int i = 0; i < MaxInitialAdventurer; i++)
         {
                         // 1. Crear un nuevo aventurero
+            var rank = (QuestRank)UnityEngine.Random.Range(1, 4); // Rango aleatorio entre E, D, C
+            var name = "Recluta " + i; // Nombre temporal
             AdventurerSO template = _adventurerTemplates[UnityEngine.Random.Range(0, _adventurerTemplates.Count)];
-            AdventurerInstance newRecruit = new AdventurerInstance(template, 10, 10); // Stats base
-            newRecruit.Rank = (QuestRank)UnityEngine.Random.Range(1, 4); // Rango aleatorio entre E, D, C
-            newRecruit.Name = "Recluta " + i; // Nombre temporal
+            AdventurerInstance newRecruit = new AdventurerInstance(template, 10, 10, rank, name); // Stats base
 
             allAdventurers.Add(newRecruit);
         }

@@ -103,10 +103,12 @@ public class QuestManager : MonoBehaviour
             adventurer.GainXP(quest.Result.ExperienceEarned);
             // Calculamos un costo de energía. Por ejemplo, 30 puntos por misión.
             int energyCost = 30;
-            adventurer.CurrentEnergy -= energyCost;
-            if (adventurer.CurrentEnergy < 0)
+            adventurer.SpendEnergy(energyCost);
+            
+            // Ejemplo de uso de TakeDamage basado en StressChange (opcional)
+            if (quest.Result.StressChange > 0)
             {
-                adventurer.CurrentEnergy = 0;
+                adventurer.TakeDamage(quest.Result.StressChange);
             }
             // ---------------------------------
 

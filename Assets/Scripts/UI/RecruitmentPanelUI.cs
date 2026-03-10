@@ -35,12 +35,12 @@ public class RecruitmentPanelUI : MonoBehaviour
         {
             // 1. Crear un nuevo aventurero
             AdventurerSO template = _adventurerTemplates[Random.Range(0, _adventurerTemplates.Count)];
-            AdventurerInstance newRecruit = new AdventurerInstance(template, 100, 100); // Stats base
-            newRecruit.Rank = (QuestRank)Random.Range(1, 4); // Rango aleatorio entre E, D, C
-            newRecruit.Name = "Recluta " + i; // Nombre temporal
+            var rank = (QuestRank)Random.Range(1, 4); // Rango aleatorio entre E, D, C
+            var name = "Recluta " + i; // Nombre temporal
+            AdventurerInstance newRecruit = new AdventurerInstance(template, 100, 100, rank, name); // Stats base
 
             // 2. Calcular su costo
-            int hiringCost = 100 + ((int)newRecruit.Rank * 50); // Lógica de costo simple
+            int hiringCost = 100 + ((int)rank * 50); // Lógica de costo simple
 
             // 3. Crear y configurar la tarjeta de UI
             GameObject cardGO = Instantiate(recruitCardPrefab, cardContainer);

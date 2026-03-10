@@ -37,7 +37,7 @@ public class TavernRosterCardUI : MonoBehaviour
     }
     public void RestAdventurer()
     {
-        _adventurer.IsResting = !_adventurer.IsResting;
+        _adventurer.SetResting(!_adventurer.IsResting);
     }
     public void UpdateStatusText()
     {
