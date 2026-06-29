@@ -30,7 +30,7 @@ public class AdventurerManager : MonoBehaviour
     }
 
     [SerializeField] private List<AdventurerSO> _adventurerTemplates;
-    [SerializeField] private int MaxInitialAdventurer { get; set; } = 6;
+    [SerializeField] private int maxInitialAdventurer = 6;
     private List<AdventurerInstance> allAdventurers = new();
 
     public static event Action OnRosterChanged;
@@ -63,7 +63,7 @@ public class AdventurerManager : MonoBehaviour
 
         System.Random random = new System.Random();
         int numero = random.Next(3);
-        for (int i = 0; i < MaxInitialAdventurer; i++)
+        for (int i = 0; i < maxInitialAdventurer; i++)
         {
                         // 1. Crear un nuevo aventurero
             var rank = (QuestRank)UnityEngine.Random.Range(1, 4); // Rango aleatorio entre E, D, C
